@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 
@@ -34,20 +35,24 @@ class ArticleList(DetailView):
     context_object_name = 'article'
     #context_object_name = 'news'
 
+class MyView(PermissionRequiredMixin, View):
+    permission_required = ('<app>.<action>_<model>',
+                           '<app>.<action>_<model>')
 
-class AddList(CreateView):
+
+class AddList(PermissionRequiredMixin, CreateView):
     queryset = Post.objects.all()
     template_name = 'add.html'
+    permission_required = ('news.add_post',)
     form_class = PostForm
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
-
-        # context['categoryType'] = categoryType.objects.all()
         context['form'] = PostForm()
         return context
+
 
 
 
@@ -70,10 +75,6 @@ def upgrade_me(request):
     if not request.user.groups.filter(name='avthor').exists():
         avthor_group.user_set.add(user)
     return redirect('/')
-
-
-
-
 
 
 
