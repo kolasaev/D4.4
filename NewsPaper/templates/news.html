@@ -24,6 +24,7 @@ News
     </thead>
     {% for news in filter.qs %}
     <tr>
+
         <td>
             <a href="{% url 'article' news.id %}">{{ news.title }}</a>
             <a href="{% url 'edit' news.id %}"><u>Редактировать</u></a> <!-- добавим ссылку на редактирование товара-->

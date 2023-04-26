@@ -1,6 +1,6 @@
 {% extends 'default.html' %}
 
-<!-- Название у нас будет proudcts -->
+
 {% block title %}
 NEWS
 {% endblock title %}
@@ -20,7 +20,7 @@ NEWS
         </th>
 
     </thead>
-    {% for news in filter.qs %}
+    {% for news in filter.qs  %}
     <tr>
         <td>
             {{ news.title|truncatechars:50  }}
@@ -31,8 +31,16 @@ NEWS
         <td>
             {{ news.text}}
         </td>
+        <td>
+            {{ news.avthor}}
+        </td>
 
     </tr>
     {% endfor %}
 </table>
+
+{% if is_not_avthor %}
+<button> <a href="upgrade/"> Стать автором </a> </button>
+{% endif %}
+
 {% endblock content %}

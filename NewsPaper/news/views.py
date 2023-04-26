@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView,UpdateView,CreateView
+from django.views.generic import ListView, DetailView,UpdateView,CreateView,TemplateView
 from .models import Post, PostCategory
 from datetime import datetime
 from django.core.paginator import Paginator
 from .filters import PostFilter
 from .forms import PostForm
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -27,8 +31,8 @@ class NewsList(ListView):
 class ArticleList(DetailView):
 
     template_name = 'article.html'
-    context_object_name = 'news'
-    context_object_name = 'news'
+    context_object_name = 'article'
+    #context_object_name = 'news'
 
 
 class AddList(CreateView):
@@ -49,15 +53,26 @@ class AddList(CreateView):
 
 
 
-class EditList(UpdateView):
-    #queryset = Post.objects.all()
-    template_name = 'edit.html'
-    #context_object_name = 'news'
+class EditList(LoginRequiredMixin,UpdateView,):
+    template_name = 'add.html'
     form_class = PostForm
+
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
+
+
+@login_required
+def upgrade_me(request):
+    user = request.user
+    avthor_group = Group.objects.get(name='avthor')
+    if not request.user.groups.filter(name='avthor').exists():
+        avthor_group.user_set.add(user)
+    return redirect('/')
+
+
+
 
 
 

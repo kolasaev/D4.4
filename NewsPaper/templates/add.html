@@ -12,4 +12,8 @@ NEWS
     <input type="submit" value="Добавить новость">
 </form>
 
+{% if is_not_avthor %}
+<button> <a href="upgrade/"> Стать автором </a> </button>
+{% endif %}
+
 {% endblock content %}
