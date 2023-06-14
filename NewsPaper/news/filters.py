@@ -11,6 +11,7 @@ class PostFilter(FilterSet):
             'text': ['icontains'],
             #'avthor'.queryset: ['icontains'],
             'dateCreation': ['lt'],
+            #'PostCategory':['icontains'],
 
 
         }

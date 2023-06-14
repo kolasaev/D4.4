@@ -2,37 +2,22 @@
 
 
 {% block title %}
-NEWS
+Подробности
 {% endblock title %}
 
 {% block content %}
 
-<table>
-    <thead>
-        <th>
-           Заголовок
-        </th>
-        <th>
-           Дата публикации
-        </th>
-        <th>
-            Текст
-        </th>
 
-    </thead>
-    {% for news in filter.qs %}
-    <tr>
-        <td>
-            {{ news.title|truncatechars:50  }}
-        </td>
-        <td>
-            {{ news.dateCreation|date:'M d Y'}}
-        </td>
-        <td>
-            {{ news.text}}
-        </td>
+    <i>{{ news.dateCreation|date:'M d Y' }} |
+    {{ news.title|truncatechars:50  }}
+    {{ news.avthor}}
+    {{ news.text}}
+    {{ news.categoryType}}</i>
+    <a href="{% url 'edit' news.id %}">[Редактировать]</a>
+    <a href="{% url 'delete' news.id %}">[Удалить]</a>
+    <a href="{% url 'subscribed' news.id %}">{{ news.categoryType}}[ Подписаться на категорию  ]</a>
 
-    </tr>
-    {% endfor %}
-</table>
+    <hr>
+
+
 {% endblock content %}

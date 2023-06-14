@@ -8,6 +8,7 @@ News
 <h3>{{ time_now }}</h3>
     <h1>Все новости</h1>
     <hr>
+Новостей: {{ news | length}} шт.
 
 <table>
     <thead>
@@ -43,12 +44,22 @@ News
         <td>
             {{ news.avthor}}
         </td>
+        <td>
+            {{ news.categoryType}}
+        </td>
 
     </tr>
     {% endfor %}
 
 </table>
 <a href="{% url 'add' %}">Добавить новость</a> <br>
+
+{% for each in news.categoryType.filter %}
+     {{each}}
+    {% endfor %}
+{% for each in news.categoryType.filter %}
+    <a href="{% url 'subscribed' news.id %}">[ Подписаться на категорию {{ each }} ]</a>
+    {% endfor %}
 
 {% if is_paginated %}
 
