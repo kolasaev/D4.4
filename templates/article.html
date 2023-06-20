@@ -1,0 +1,24 @@
+{% extends 'default.html' %}
+
+
+{% block title %}
+Подробности
+{% endblock title %}
+
+{% block content %}
+
+
+    <i>{{ news.dateCreation|date:'M d Y' }} |
+    {{ news.title|truncatechars:50  }}
+    {{ news.avthor}}
+    {{ news.text}}
+    {{ news.categoryType}}</i>
+    <a href="{% url 'edit' news.id %}">[Редактировать]</a>
+    <a href="{% url 'delete' news.id %}">[Удалить]</a>
+
+    <a href="{% url 'subscribed' news.id %}">{{ news.categoryType}}[ Подписаться на категорию  ]</a>
+
+    <hr>
+
+
+{% endblock content %}

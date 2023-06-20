@@ -1,0 +1,45 @@
+{% extends 'default.html' %}
+
+{% block content %}
+
+
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+ <table>
+    <thead>
+        <th>
+           Заголовок
+        </th>
+        <th>
+            автор
+        </th>
+        <th>
+           Дата публикации
+        </th>
+        <th>
+            Текст статьи
+        </th>
+
+    </thead>
+    {% for news in filter.qs %}
+    <tr>
+        <td>
+            {{ news.title|truncatechars:50  }}
+        </td>
+        <td>
+            {{ news.avthor}}
+        </td>
+        <td>
+            {{ news.text}}
+        </td>
+        <td>
+            {{ news.dateCreation}}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

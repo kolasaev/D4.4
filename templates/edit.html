@@ -1,0 +1,46 @@
+{% extends 'default.html' %}
+
+
+{% block title %}
+NEWS
+{% endblock title %}
+
+{% block content %}
+
+<table>
+    <thead>
+        <th>
+           Заголовок
+        </th>
+        <th>
+           Дата публикации
+        </th>
+        <th>
+            Текст статьи
+        </th>
+
+    </thead>
+    {% for news in filter.qs  %}
+    <tr>
+        <td>
+            {{ news.title|truncatechars:50  }}
+        </td>
+        <td>
+            {{ news.dateCreation|date:'M d Y'}}
+        </td>
+        <td>
+            {{ news.text}}
+        </td>
+        <td>
+            {{ news.avthor}}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+{% if is_not_avthor %}
+<button> <a href="upgrade/"> Стать автором </a> </button>
+{% endif %}
+
+{% endblock content %}

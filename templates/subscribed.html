@@ -1,0 +1,10 @@
+{% extends 'default.html' %}
+ 
+{% block title %}
+Успешная подписка
+{% endblock title %}
+ 
+{% block content %}
+    <h1>Поздравляем, {{ user.get_username }}!</h1>
+        <h2>Вы подписались на категорию {{ subscribed.name }}!</h2>
+{% endblock content %}
