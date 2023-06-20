@@ -1,0 +1,40 @@
+{% extends 'default.html' %}
+
+
+{% block content %}
+<h2>Вы действительно хотите удалить статью?</h2>
+<table>
+
+    <thead>
+        <th>
+           Заголовок
+        </th>
+        <th>
+           Дата публикации
+        </th>
+        <th>
+            Текст статьи
+        </th>
+
+    </thead>
+
+    <tr>
+        <td>
+            {{ news.title|truncatechars:50  }}
+        </td>
+        <td>
+            {{ news.dateCreation|date:'M d Y'}}
+        </td>
+        <td>
+            {{ news.text}}
+        </td>
+
+    </tr>
+
+
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %}
